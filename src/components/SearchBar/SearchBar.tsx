@@ -15,6 +15,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   const [query, setQuery] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
   const [isDropDown, setIsDropDown] = useState(true);
+  const trimmedQuery = appliedQuery.trim(); // Додано обрізання пробілів
 
   const debouncedSetQuery = useMemo(
     () => debounce((value: string) => setAppliedQuery(value), 300),
@@ -46,7 +47,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       {isDropDown && (
         <PersonList
           people={people}
-          query={appliedQuery}
+          query={trimmedQuery}
           onPersonSelect={person => {
             onPersonSelected(person);
             setQuery(person.name);
